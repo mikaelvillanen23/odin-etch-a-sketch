@@ -4,49 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Etch-a-Sketch project</title>
-        <style>
-            #container {
-                border: 1px solid black;
-            }
-            .square {
-                border: 1px solid black;
-                width: 20px;
-                height: 20px;
-                /* margin: 100px; */
-                cursor: url("./assets/pencil.cur"), auto;
-            }
-            .colored {
-                background-color: black;
-            }
-        </style>
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
         <h1>Etch a Sketch!</h1>
-        <div id="container">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
+        <div id="buttonContainer">
+            <button type="button" id="canvasButton">Create a new canvas</button>
+            <button type="button" id="gridButton">Show grid</button>
         </div>
-
-
-
-
+        <div id="container"></div>
 
         <script src="script.js"></script>
     </body>
