@@ -1,3 +1,5 @@
+// *** Variables and DOM elements ***
+
 // let currentColor = "black"
 let pointerHeld = false;
 let currentSize = 16;
@@ -14,6 +16,15 @@ const resetButton = document.querySelector("#resetButton");
 resetButton.addEventListener("click", () => {
   resetCanvas(currentSize)
 });
+const canvasButton = document.querySelector("#canvasButton");
+canvasButton.addEventListener("click", createCanvas);
+const gridButton = document.querySelector("#gridButton");
+gridButton.addEventListener("click", toggleGrid);
+const sizeInfo = document.querySelector(".currentSize");
+sizeInfo.textContent = `${currentSize} x ${currentSize}`;
+
+
+// *** Function definitions ***
 
 function resetCanvas(n) {
   container.innerHTML = ""; // remove previous squares
@@ -41,12 +52,13 @@ function resetCanvas(n) {
 function createCanvas() {
   container.innerHTML = ""; // remove previous squares
 
-  let n = Number(prompt("Determine canvas side length (min = 10, max = 100).\nIf you fail to hit the given range, size will default to 16x16."));
-  currentSize = n;
+  let n = Number(prompt("Determine canvas side length (min = 10, max = 100).\n\nNote:\nIf you fail to hit the given range or press Cancel, canvas size will default to 16x16."));
 
-  if (n < 10 || n > 100) {
+  if (n < 10 || n > 100 || isNaN(n)) {
     resetCanvas(16);
+    currentSize = 16;
   } else {
+      currentSize = n;
       for (let i = 0; i < n; i++) {
       const row = document.createElement("div");
       row.classList.add("row");
@@ -66,13 +78,8 @@ function createCanvas() {
     }
   }
   if (gridButton.textContent === "Hide grid") gridButton.textContent = "Show grid";
+  sizeInfo.textContent = `${currentSize} x ${currentSize}`;
 }
-
-const canvasButton = document.querySelector("#canvasButton");
-canvasButton.addEventListener("click", createCanvas);
-
-const gridButton = document.querySelector("#gridButton");
-gridButton.addEventListener("click", toggleGrid);
 
 function toggleGrid() {
   const squares = document.querySelectorAll(".square");
@@ -89,15 +96,9 @@ resetCanvas(16);
 
 
 /* TODO:
-+ creation of grid with flexbox out of user input
-  +accept numbers only -> if something else alert "numbers only pls"
-  +min = 10, max = 100 -> if OB, default to min/max
-+ create default canvas of 16x16
 Additional functionalities:
-  + clear current
-  - eraser with secondary click!
+  - eraser with secondary click?
   - colorpicker?
   - randomizer for color?
   - opacity?
-  + show/hide grid
 */
