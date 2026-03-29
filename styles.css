@@ -1,4 +1,5 @@
 body {
+  background-color: aquamarine;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,6 +14,7 @@ body {
 #container {
   width: 600px;
   height: 600px;
+  background-color: white;
   cursor: url("./assets/pencil.cur"), auto;
   border: 1px solid black;
   margin-top: 16px;
