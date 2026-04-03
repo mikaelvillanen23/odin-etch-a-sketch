@@ -19,7 +19,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 }
 
 #gridButton {
@@ -27,7 +27,7 @@ h3 {
 }
 
 label {
-  margin-right: -30px;
+  margin-right: -10px;
 }
 
 #container {
@@ -50,10 +50,6 @@ label {
 .square {
   flex-grow: 1;
 }
-
-/* .colored {
-  background-color: black;
-} */
 
 .grid {
   box-sizing: border-box;

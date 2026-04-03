@@ -1,6 +1,7 @@
 // *** Variables and DOM elements ***
 
 let currentColor = "#000000";
+let randomizerOn = false;
 let pointer0Held = false;
 let pointer2Held = false;
 let currentSize = 16;
@@ -37,6 +38,12 @@ const colorPicker = document.querySelector("#colorPicker");
 colorPicker.addEventListener("change", (event) => {
   currentColor = event.target.value;
 });
+const randomizer = document.querySelector("#randomizer");
+randomizer.addEventListener("click", () => {
+  if (randomizerOn === false) {
+    randomizerOn = true;
+  } else randomizerOn = false;
+});
 
 
 // *** Functions ***
@@ -63,23 +70,34 @@ function createCanvas(n) {
         const square = document.createElement("div");
         square.classList.add("square");
         square.addEventListener("mousedown", (event) => { // to (de)color the clicked square itself
-          switch (event.button) {
-            case 0:
-              // square.classList.add("colored");
-              square.setAttribute("style", `background-color: ${currentColor}`);
-              break;
-            case 2:
-              // square.classList.remove("colored");
-              square.setAttribute("style", "background-color: white");
-              break;
+          if (randomizerOn === true) {
+            switch (event.button) {
+              case 0:
+                square.setAttribute("style", `background-color: ${getRandomRGB()}`);
+                break;
+              case 2:
+                square.setAttribute("style", "background-color: white");
+                break;
+            }
+          } else {
+              switch (event.button) {
+                case 0:
+                  square.setAttribute("style", `background-color: ${currentColor}`);
+                  break;
+                case 2:
+                  square.setAttribute("style", "background-color: white");
+                  break;
+              }
           }
         });
         square.addEventListener("mouseover", () => {
           if (pointer0Held === true) {
-            // square.classList.add("colored");
-            square.setAttribute("style", `background-color: ${currentColor}`);
+            if (randomizerOn === true) {
+              square.setAttribute("style", `background-color: ${getRandomRGB()}`);
+            } else {
+              square.setAttribute("style", `background-color: ${currentColor}`);
+            }
           } else if (pointer2Held === true) {
-            // square.classList.remove("colored");
             square.setAttribute("style", "background-color: white");
           }
         });
@@ -105,15 +123,16 @@ function toggleGrid() {
   } else gridButton.textContent = "Show grid";
 }
 
+function getRandomRGB() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
 createCanvas(16);
 
 
 /* TODO:
-Additional functionalities:
-  - randomizer for color
+ - add credit for pencil cursor graphic
 */
-
-function getRandomRGB() {
-  const value = Math.floor(Math.random() * 256);
-  return value;
-}
