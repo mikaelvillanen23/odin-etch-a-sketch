@@ -1,6 +1,7 @@
 // *** Variables and DOM elements ***
 
 let currentColor = "#000000";
+let colorPickerOn = false;
 let randomizerOn = false;
 let pointer0Held = false;
 let pointer2Held = false;
@@ -15,6 +16,7 @@ window.addEventListener("mousedown", (event) => {
       pointer2Held = true;
       break;
   }
+  colorPickerOn = false;
 });
 window.addEventListener("mouseup", () => {
   pointer0Held = false;
@@ -24,7 +26,7 @@ window.addEventListener("mouseup", () => {
 const container = document.querySelector("#container");
 const resetButton = document.querySelector("#resetButton");
 resetButton.addEventListener("click", () => {
-  createCanvas(currentSize)
+  createCanvas(currentSize);
 });
 const canvasButton = document.querySelector("#canvasButton");
 canvasButton.addEventListener("click", () => {
@@ -35,14 +37,21 @@ gridButton.addEventListener("click", toggleGrid);
 const sizeInfo = document.querySelector(".currentSize");
 sizeInfo.textContent = `${currentSize} x ${currentSize}`;
 const colorPicker = document.querySelector("#colorPicker");
+colorPicker.addEventListener("click", (event) => {
+  event.stopPropagation(); // prevent first click from registering on canvas after color change, because it would still use the previous color
+  if (randomizerOn) {
+    event.preventDefault(); // disable picker
+  } else colorPickerOn = true;
+});
 colorPicker.addEventListener("change", (event) => {
   currentColor = event.target.value;
 });
 const randomizer = document.querySelector("#randomizer");
-randomizer.addEventListener("click", () => {
+randomizer.addEventListener("change", () => {
   if (randomizerOn === false) {
     randomizerOn = true;
   } else randomizerOn = false;
+  colorPicker.classList.toggle("disabled");
 });
 
 
@@ -70,7 +79,9 @@ function createCanvas(n) {
         const square = document.createElement("div");
         square.classList.add("square");
         square.addEventListener("mousedown", (event) => { // to (de)color the clicked square itself
-          if (randomizerOn === true) {
+          if (colorPickerOn) {
+            // do nothing
+          } else if (randomizerOn) {
             switch (event.button) {
               case 0:
                 square.setAttribute("style", `background-color: ${getRandomRGB()}`);
@@ -91,13 +102,13 @@ function createCanvas(n) {
           }
         });
         square.addEventListener("mouseover", () => {
-          if (pointer0Held === true) {
-            if (randomizerOn === true) {
+          if (pointer0Held) {
+            if (randomizerOn) {
               square.setAttribute("style", `background-color: ${getRandomRGB()}`);
             } else {
               square.setAttribute("style", `background-color: ${currentColor}`);
             }
-          } else if (pointer2Held === true) {
+          } else if (pointer2Held) {
             square.setAttribute("style", "background-color: white");
           }
         });
@@ -134,5 +145,6 @@ createCanvas(16);
 
 
 /* TODO:
+ - move stuff from createCanvas to functions to tidy up?
  - add credit for pencil cursor graphic
 */
