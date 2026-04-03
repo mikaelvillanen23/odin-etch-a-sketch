@@ -1,6 +1,6 @@
 // *** Variables and DOM elements ***
 
-// let currentColor = "black"
+let currentColor = "#000000";
 let pointer0Held = false;
 let pointer2Held = false;
 let currentSize = 16;
@@ -33,9 +33,13 @@ const gridButton = document.querySelector("#gridButton");
 gridButton.addEventListener("click", toggleGrid);
 const sizeInfo = document.querySelector(".currentSize");
 sizeInfo.textContent = `${currentSize} x ${currentSize}`;
+const colorPicker = document.querySelector("#colorPicker");
+colorPicker.addEventListener("change", (event) => {
+  currentColor = event.target.value;
+});
 
 
-// *** Function definitions ***
+// *** Functions ***
 
 function userInput() {
   let n = Number(prompt("Determine canvas side length (min = 10, max = 100).\n\nNote:\nIf you fail to hit the given range or press Cancel, canvas size will default to 16x16."));
@@ -45,7 +49,7 @@ function userInput() {
 function createCanvas(n) {
   container.innerHTML = ""; // remove previous squares
 
-  if (n < 10 || n > 100 || isNaN(n)) {
+  if (n < 10 || n > 100 || isNaN(n)) { // Number() returns NaN if input includes letters (except "(-)Infinity")
     createCanvas(16);
     currentSize = 16;
   } else {
@@ -61,18 +65,22 @@ function createCanvas(n) {
         square.addEventListener("mousedown", (event) => { // to (de)color the clicked square itself
           switch (event.button) {
             case 0:
-              square.classList.add("colored");
+              // square.classList.add("colored");
+              square.setAttribute("style", `background-color: ${currentColor}`);
               break;
             case 2:
-              square.classList.remove("colored");
+              // square.classList.remove("colored");
+              square.setAttribute("style", "background-color: white");
               break;
           }
         });
         square.addEventListener("mouseover", () => {
           if (pointer0Held === true) {
-            square.classList.add("colored");
+            // square.classList.add("colored");
+            square.setAttribute("style", `background-color: ${currentColor}`);
           } else if (pointer2Held === true) {
-            square.classList.remove("colored");
+            // square.classList.remove("colored");
+            square.setAttribute("style", "background-color: white");
           }
         });
         square.addEventListener("contextmenu", function (event) {
@@ -101,9 +109,11 @@ createCanvas(16);
 
 
 /* TODO:
-  - info for UI
 Additional functionalities:
-  - colorpicker?
-  - randomizer for color?
-  - opacity?
+  - randomizer for color
 */
+
+function getRandomRGB() {
+  const value = Math.floor(Math.random() * 256);
+  return value;
+}

@@ -9,13 +9,23 @@
 
     <body>
         <h1>Etch a Sketch!</h1>
+        <div class="welcome">
+            <p>Welcome fellow Etcher!
+                Feel free to unleash your creativity on the canvas below.</p>
+            <p>This application is intended to be used with a computer and a mouse.<br>
+                You can draw with left-click and erase with right-click.</p>
+            <h3>Happy Sketching!</h3>
+        </div>
         <div id="buttonContainer">
             <button type="button" id="resetButton">Clear canvas</button>
             <button type="button" id="canvasButton">Create a new canvas</button>
             <button type="button" id="gridButton">Show grid</button>
+            <label for="colorPicker">Change color:</label>
+            <input type="color" id="colorPicker">
         </div>
         <div id="container"></div>
-        <p>Current canvas size: <span class="currentSize"></span></p>
+        <h4>Current canvas size: <span class="currentSize"></span></h4>
+        <p>© Mikael Villanen 2026</p>
 
         <script src="script.js"></script>
     </body>

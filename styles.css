@@ -5,10 +5,29 @@ body {
   align-items: center;
 }
 
+.welcome {
+  max-width: 700px;
+  font-size: 20px;
+  text-align: center;
+}
+
+h3 {
+  margin-bottom: 40px;
+}
+
 #buttonContainer {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 40px;
+}
+
+#gridButton {
+  width: 80px; /* so that it doesn't resize with text content change */
+}
+
+label {
+  margin-right: -30px;
 }
 
 #container {
@@ -32,9 +51,9 @@ body {
   flex-grow: 1;
 }
 
-.colored {
+/* .colored {
   background-color: black;
-}
+} */
 
 .grid {
   box-sizing: border-box;
