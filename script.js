@@ -137,8 +137,3 @@ function getRandomRGB() {
 }
 
 createNewCanvas(16);
-
-
-/* TODO:
- - add credit for pencil cursor graphic
- */
