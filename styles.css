@@ -30,12 +30,21 @@ h3 {
   gap: 20px;
 }
 
+button, input {
+  cursor: pointer;
+}
+
 #gridButton {
   width: 80px; /* so that it doesn't resize with text content change */
 }
 
 label {
   margin-right: -10px;
+}
+
+#randomizer {
+  zoom: 1.5;
+  margin-left: -2px;
 }
 
 #container {
@@ -62,8 +71,4 @@ label {
 .grid {
   box-sizing: border-box;
   border: 0.1mm solid rgb(244, 244, 244);
-}
-
-.disabled {
-  cursor: not-allowed;
 }
