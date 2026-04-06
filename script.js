@@ -2,24 +2,27 @@
 
 let currentColor = "#000000";
 let colorPickerOn = false;
-let pointer0Held = false;
-let pointer2Held = false;
+let mouse0Held = false;
+let mouse2Held = false;
 let currentSize = 16;
 
 window.addEventListener("mousedown", (event) => { // window was chosen so that click+hold can begin outside of canvas, and stay active even when leaving canvas area
   switch (event.button) {
     case 0: // mouse left
-      pointer0Held = true;
+      mouse0Held = true;
       break;
     case 2: // mouse right
-      pointer2Held = true;
+      mouse2Held = true;
       break;
   }
   colorPickerOn = false;
 });
 window.addEventListener("mouseup", () => {
-  pointer0Held = false;
-  pointer2Held = false;
+  mouse0Held = false;
+  mouse2Held = false;
+});
+window.addEventListener("dragstart", (event) => {
+  event.preventDefault();
 });
 
 const container = document.querySelector("#container");
@@ -88,7 +91,7 @@ function createNewCanvas(n) {
 
 function colorClick(event, elem) {
   if (colorPickerOn) {
-    // do nothing, so that the picker interface closes without the click being registered should it happen on the canvas
+    return; // do nothing, so that the picker interface closes without the click being registered should it happen on the canvas
   } else {
     switch (event.button) {
       case 0:
@@ -107,13 +110,13 @@ function colorClick(event, elem) {
 }
 
 function colorHold(elem) {
-  if (pointer0Held) {
+  if (mouse0Held) {
     if (randomizer.checked) {
       elem.setAttribute("style", `background-color: ${getRandomRGB()}`);
     } else {
       elem.setAttribute("style", `background-color: ${currentColor}`);
     }
-  } else if (pointer2Held) {
+  } else if (mouse2Held) {
     elem.setAttribute("style", "background-color: white");
   }
 }
